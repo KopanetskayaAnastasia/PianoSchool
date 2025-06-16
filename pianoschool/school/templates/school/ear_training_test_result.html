@@ -1,0 +1,37 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'school/css/ear_training_test_result.css' %}" rel="stylesheet">
+{% endblock %}
+{% load ear_training_extras %}
+{% block title %}Результат: {{ test.title }}{% endblock %}
+{% block content %}
+<h2 class="ear-result-header">Результат по контрольной: {{ test.title }}</h2>
+<p class="ear-result-summary">
+    Ваш балл: {{ tasks_and_attempts|student_points }} из {{ tasks_and_attempts|max_points }}
+</p>
+<table class="ear-result-table">
+    <tr>
+        <th>Задание</th>
+        <th>Статус</th>
+        <th>Баллы</th>
+        <th>Попытки</th>
+    </tr>
+    {% for task, attempts in tasks_and_attempts %}
+    <tr>
+        <td>{{ task.question }}</td>
+        <td>
+            {% if attempts|some_attempt_correct %}
+                <span class="ear-status-correct">Верно</span>
+            {% else %}
+                <span class="ear-status-wrong">Неверно</span>
+            {% endif %}
+        </td>
+        <td>{{ attempts|points_for_task:task }}</td>
+        <td>{{ attempts|length }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a class="ear-back-link" href="{% url 'school:ear_training_tests' %}">К списку контрольных</a>
+
+{% endblock %}

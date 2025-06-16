@@ -1,0 +1,17 @@
+{% extends 'main/layout.html'%}
+{% block title %}Удаление профиля{% endblock %}
+{% block content %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+  <div class="container mt-5">
+    <p>Вы уверены, что хотите удалить свой профиль? Это действие <strong>необратимо</strong>.</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Удалить профиль</button>
+      <a href="{% url 'personalisation' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+  </div>
+{% endblock %}

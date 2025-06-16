@@ -1,0 +1,81 @@
+    :root {
+    --orange-main: #f1a332;
+    --orange-dark: #dc8f41;
+    --orange-light: #ffe0b2;
+    --text-dark: #333;
+    --bg-light: #fff8f0;
+    --green: #43a047;
+    --red: #e53935;
+    --gray: #bdbdbd;
+}
+
+
+
+.ear-section-header {
+    color: var(--orange-dark);
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.ear-section-table {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 2.5rem auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(255,152,0,0.10);
+    overflow: hidden;
+}
+
+.ear-section-table th {
+    background: var(--orange-main);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.85em 1.1em;
+    font-size: 1.08rem;
+    letter-spacing: 0.5px;
+}
+
+.ear-section-table td {
+    padding: 0.7em 1.1em;
+    text-align: center;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--orange-light);
+}
+
+.ear-section-table tr:last-child td {
+    border-bottom: none;
+}
+
+.ear-status-done {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.ear-status-notdone {
+    color: var(--red);
+    font-weight: 600;
+}
+
+.ear-back-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.5em 1.2em;
+    border-radius: 6px;
+    background: var(--orange-main);
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 3px rgba(255,152,0,0.10);
+}
+
+.ear-back-link:hover {
+    background: var(--orange-dark);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.18);
+}

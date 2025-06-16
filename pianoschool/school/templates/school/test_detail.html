@@ -1,0 +1,138 @@
+{% extends "main/layout.html" %}
+{% block content %}
+  {% for message in messages %}
+    <div class="alert alert-success">{{ message }}</div>
+  {% endfor %}
+   <div class="test-container">
+    <div class="test-title">{{ test.content.test.title }}</div>
+    <div class="test-desc">{{ test.content.test.description }}</div>
+
+    <div class="timer-block" id="timer-block">
+      <span class="timer-label">Оставшееся время:</span>
+      <span class="timer-value" id="timer">15:00</span>
+    </div>
+
+    {% if is_teacher %}
+      <div class="alert alert-info">Режим просмотра для преподавателя</div>
+      <ul class="question-list">
+        {% for q in test.content.test.questions %}
+          <li>
+            <div class="question-block">
+              <b>{{ q.question }}</b><br>
+              {% if q.type == "multiple_choice" %}
+                <ul style="margin-top: 10px;">
+                  {% for opt in q.options %}
+                    <li{% if opt == q.correct_answer %} class="correct-answer"{% endif %}>{{ opt }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      <a href="{% url 'school:lesson_detail_solf' pk=test.lesson.pk %}" class="btn btn-primary">Вернуться к уроку</a>
+    {% elif test_completed %}
+      <div class="alert alert-success">Тест пройден, пройти еще раз невозможно.</div>
+      <a href="{% url 'school:lesson_detail_solf' pk=test.lesson.pk %}" class="btn btn-primary">Вернуться к уроку</a>
+    {% elif no_more_attempts %}
+      <div class="alert alert-warning">Вы исчерпали все попытки прохождения теста.</div>
+      <a href="{% url 'school:lesson_detail_solf' pk=test.lesson.pk %}" class="btn btn-primary">Вернуться к уроку</a>
+    {% else %}
+      <form method="post" id="test-form">
+        {% csrf_token %}
+        {% for q in test.content.test.questions %}
+          <div class="question-block">
+            <label><b>{{ forloop.counter }}. {{ q.question }}</b></label>
+            {% if q.type == "multiple_choice" %}
+              {% for opt in q.options %}
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="question_{{ q.id }}" id="q{{ q.id }}_{{ forloop.counter0 }}" value="{{ opt }}" required>
+                  <label class="form-check-label" for="q{{ q.id }}_{{ forloop.counter0 }}">{{ opt }}</label>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-success" id="submit-btn">Отправить ответы</button>
+      </form>
+      <p class="attempts-info">Попыток использовано: {{ attempts|default:0 }} из 2</p>
+<script>
+  // Таймер на 15 минут с сохранением состояния
+  function startTimer(duration, display, submitBtn) {
+    // Получаем сохраненное время из localStorage или устанавливаем начальное значение
+    var testId = "{{ test.id }}"; // Уникальный идентификатор теста
+    var storageKey = "testTimer_" + testId;
+    var endTimeKey = "testEndTime_" + testId;
+
+    var endTime;
+
+    // Проверяем, есть ли сохраненное время окончания
+    if (localStorage.getItem(endTimeKey)) {
+      endTime = parseInt(localStorage.getItem(endTimeKey));
+    } else {
+      // Если нет, устанавливаем новое время окончания
+      endTime = Date.now() + (duration * 1000);
+      localStorage.setItem(endTimeKey, endTime);
+    }
+
+    var interval = setInterval(function () {
+      // Вычисляем оставшееся время в секундах
+      var currentTime = Date.now();
+      var remainingTime = Math.max(0, Math.floor((endTime - currentTime) / 1000));
+
+      // Сохраняем текущее оставшееся время
+      localStorage.setItem(storageKey, remainingTime);
+
+      var minutes = Math.floor(remainingTime / 60);
+      var seconds = remainingTime % 60;
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      display.textContent = minutes + ":" + seconds;
+
+      if (remainingTime <= 0) {
+        clearInterval(interval);
+        display.textContent = "00:00";
+        // Очищаем localStorage
+        localStorage.removeItem(storageKey);
+        localStorage.removeItem(endTimeKey);
+        // Автоматически нажимаем кнопку отправки
+        if (submitBtn) {
+          submitBtn.click();
+        }
+      }
+    }, 1000);
+
+    // Добавляем обработчик события beforeunload для сохранения времени перед закрытием страницы
+    window.addEventListener('beforeunload', function() {
+      var currentTime = Date.now();
+      var remainingTime = Math.max(0, Math.floor((endTime - currentTime) / 1000));
+      localStorage.setItem(storageKey, remainingTime);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var timerBlock = document.getElementById('timer-block');
+    var timerDisplay = document.getElementById('timer');
+    var submitBtn = document.getElementById('submit-btn');
+    var form = document.getElementById('test-form');
+
+    if (form && timerBlock && timerDisplay && submitBtn) {
+      timerBlock.style.display = 'flex';
+      startTimer(15 * 60, timerDisplay, submitBtn);
+    }
+
+    // Добавляем обработчик отправки формы для очистки localStorage
+    if (form) {
+      form.addEventListener('submit', function() {
+        var testId = "{{ test.id }}";
+        localStorage.removeItem("testTimer_" + testId);
+        localStorage.removeItem("testEndTime_" + testId);
+      });
+    }
+  });
+</script>
+    {% endif %}
+  </div>
+{% endblock %}

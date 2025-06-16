@@ -1,0 +1,105 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}{{ lesson.topic }} | Музыкальная литература{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'school:literature_lessons' %}">Уроки музыкальной литературы</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ lesson.topic }}</li>
+        </ol>
+    </nav>
+    
+    <div class="lesson-header mb-4">
+        <h1>{{ lesson.topic }}</h1>
+    </div>
+
+    <div class="row">
+        <!-- Левая колонка: Теория -->
+        <div class="col-lg-8">
+            <!-- Теория -->
+            <div class="card mb-4 shadow-sm theory-card">
+                <div class="card-header accent-bg">
+                    <h2 class="h5 mb-0">Теория</h2>
+                </div>
+                <div class="card-body">
+                    {% if lesson.content_file.content.theory %}
+                    <div class="theory-text">
+                        {{ lesson.content_file.content.theory|safe }}
+                    </div>
+                    {% else %}
+                        <p>{{ lesson.description|linebreaks }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Правая колонка: Аудио и визуальные примеры -->
+        <div class="col-lg-4">
+            <!-- Аудио примеры -->
+            {% if lesson.content_file.content.audio_examples %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header accent-light">
+                    <h2 class="h5 mb-0">Аудио примеры</h2>
+                </div>
+                <div class="card-body">
+                    {% for audio in lesson.content_file.content.audio_examples %}
+                    <div class="audio-example mb-3">
+                        <h3 class="h6">{{ audio.title }}</h3>
+                        <audio controls class="w-100">
+                            <source src="{% static audio.file_path %}" type="audio/mpeg">
+                            Ваш браузер не поддерживает аудио элемент.
+                        </audio>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+
+        </div>
+    </div>
+
+    <!-- Тесты к уроку -->
+    <div class="row">
+        <div class="col-lg-8">
+            {% if tests %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header accent-dark">
+                    <h2 class="h5 mb-0">Тест к уроку</h2>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for test in tests %}
+                        <a href="{% url 'school:test_detail' test.pk %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-tasks me-2"></i> {{ test.topic }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Навигация по урокам -->
+    <div class="mt-4">
+        <div class="d-flex justify-content-between">
+            {% if lesson.content_file.id > 1 %}
+            <a href="{% url 'school:lesson_detail_lit' lesson.id|add:'-1' %}" class="btn accent-btn">
+                <i class="fas fa-arrow-left"></i> Предыдущий урок
+            </a>
+            {% else %}
+            <div></div>
+            {% endif %}
+
+            {% if next_lesson %}
+            <a href="{% url 'school:lesson_detail_lit' next_lesson.pk %}" class="btn accent-btn">
+                Следующий урок: {{ next_lesson.topic }} <i class="fas fa-arrow-right"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

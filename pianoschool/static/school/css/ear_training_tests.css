@@ -1,0 +1,88 @@
+    /* Основные цвета */
+:root {
+    --orange-main: #472404;
+    --orange-dark: #f49737;
+    --orange-light: #ffe0b2;
+    --text-dark: #333;
+    --bg-light: #fff8f0;
+}
+
+
+
+.ear-training-header {
+    color: var(--orange-dark);
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.section-block {
+    background: var(--orange-light);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    padding: 1.2rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.08);
+}
+
+.section-title {
+    color: var(--orange-main);
+    font-size: 1.4rem;
+    margin-bottom: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.ear-training-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.ear-training-list li {
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 0.7rem;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(255,152,0,0.07);
+    transition: box-shadow 0.2s;
+}
+
+.ear-training-list li:hover {
+    box-shadow: 0 4px 12px rgba(255,152,0,0.18);
+}
+
+.test-title {
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.test-lesson {
+    color: #888;
+    font-size: 0.98rem;
+    margin-left: 0.5rem;
+}
+
+.ear-training-actions a {
+    display: inline-block;
+    margin-left: 0.7rem;
+    padding: 0.45em 1.1em;
+    border-radius: 6px;
+    background: var(--orange-main);
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 3px rgba(255,152,0,0.10);
+}
+
+.ear-training-actions a:hover {
+    background: var(--orange-dark);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.18);
+}

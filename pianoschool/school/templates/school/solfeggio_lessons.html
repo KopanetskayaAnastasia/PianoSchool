@@ -1,0 +1,48 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Уроки сольфеджио{% endblock %}
+
+{% block content %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+<div class="container mt-5">
+    <h1 class="mb-4" style="color:#ff9800;">Уроки сольфеджио</h1>
+
+    {% if student_grade and student_school %}
+    <div class="accent-border">
+        <p>Школа: {{ student_school }}</p>
+        <p>Класс: {{ student_grade }}</p>
+    </div>
+    {% endif %}
+
+    {% if lessons %}
+    <div class="row">
+        {% for lesson in lessons %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm accent-border" style="border-width:2px;">
+                <div class="card-header accent-bg">
+                    <h5 class="card-title mb-0">{{ lesson.topic }}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ lesson.description|truncatewords:20 }}</p>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <a href="{% url 'school:lesson_detail_solf' lesson.pk %}" class="btn accent-btn">
+                        Перейти к уроку <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning accent-border">
+        <p>Для вашего класса пока нет доступных уроков по сольфеджио.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

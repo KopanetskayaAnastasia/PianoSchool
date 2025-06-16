@@ -1,0 +1,319 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}{{ lesson.Topic }} | Сольфеджио{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'school:solfeggio_lessons' %}">Уроки сольфеджио</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ lesson.topic }}</li>
+        </ol>
+    </nav>
+    
+    <div class="lesson-header mb-4">
+        <h1>{{ lesson.topic }}</h1>
+    </div>
+            <!-- Виртуальное пианино -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header accent-bg">
+                <h2 class="h5 mb-0">Виртуальное пианино</h2>
+            </div>
+            <div class="card-body">
+                <div class="piano">
+                    <div class="container" style="width: 100%;">
+                        <div class="keys">
+                            <button class="col-xl col-md col-sm key key-w C " data-sound="C">До</button>
+                            <button class="col-xl col-md col-sm key key-b Cs " data-sound="Cs">До# <br> РеЬ</button>
+                            <button class="col-xl col-md col-sm key key-w D " data-sound="D">Ре</button>
+                            <button class="col-xl col-md col-sm key key-b Ds " data-sound="Ds">Ре# <br> МиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w E " data-sound="E">Ми</button>
+                            <button class="col-xl col-md col-sm key key-w F " data-sound="F">Фа</button>
+                            <button class="col-xl col-md col-sm key key-b Fs " data-sound="Fs">Фа# <br> СольЬ</button>
+                            <button class="col-xl col-md col-sm key key-w G " data-sound="G">Соль</button>
+                            <button class="col-xl col-md col-sm key key-b Gs " data-sound="Gs">Соль# <br> ЛяЬ</button>
+                            <button class="col-xl col-md col-sm key key-w A " data-sound="A">Ля</button>
+                            <button class="col-xl col-md col-sm key key-b As " data-sound="As">Ля# <br> СиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w B " data-sound="B">Си</button>
+                            <button class="col-xl col-md col-sm key key-w C1 " data-sound="C1">До</button>
+                            <button class="col-xl col-md col-sm key key-b Cs1 " data-sound="Cs1">До# <br> РеЬ</button>
+                            <button class="col-xl col-md col-sm key key-w D1 " data-sound="D1">Ре</button>
+                            <button class="col-xl col-md col-sm key key-b Ds1 " data-sound="Ds1">Ре# <br> МиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w E1 " data-sound="E1">Ми</button>
+                            <button class="col-xl col-md col-sm key key-w F1 " data-sound="F1">Фа</button>
+                            <button class="col-xl col-md col-sm key key-b Fs1 " data-sound="Fs1">Фа# <br> СольЬ</button>
+                            <button class="col-xl col-md col-sm key key-w G1 " data-sound="G1">Соль</button>
+                            <button class="col-xl col-md col-sm key key-b Gs1 " data-sound="Gs1">Соль# <br> ЛяЬ</button>
+                            <button class="col-xl col-md col-sm key key-w A1 " data-sound="A1">Ля</button>
+                            <button class="col-xl col-md col-sm key key-b As1 " data-sound="As1">Ля# <br> СиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w B1 " data-sound="B1">Си</button>
+                            <button class="col-xl col-md col-sm key key-w C2" data-sound="C2">До</button>
+                            <button class="col-xl col-md col-sm key key-b Cs2" data-sound="Cs2">До# <br> РеЬ</button>
+                            <button class="col-xl col-md col-sm key key-w D2 " data-sound="D2">Ре</button>
+                            <button class="col-xl col-md col-sm key key-b Ds2 " data-sound="Ds2">Ре# <br> МиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w E2 " data-sound="E2">Ми</button>
+                            <button class="col-xl col-md col-sm key key-w F2 " data-sound="F2">Фа</button>
+                            <button class="col-xl col-md col-sm key key-b Fs2 " data-sound="Fs2">Фа# <br> СольЬ</button>
+                            <button class="col-xl col-md col-sm key key-w G2 " data-sound="G2">Соль</button>
+                            <button class="col-xl col-md col-sm key key-b Gs2 " data-sound="Gs2">Соль# <br> ЛяЬ</button>
+                            <button class="col-xl col-md col-sm key key-w A2 " data-sound="A2">Ля</button>
+                            <button class="col-xl col-md col-sm key key-b As2 " data-sound="As2">Ля# <br> СиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w B2 " data-sound="B2">Си</button>
+                            <audio id="C" >
+                                <source src="{% static 'audio1/c2.mp3'%}" type="audio/mpeg" />
+                            </audio>
+                            <audio id="Cs" >
+                                <source src="{% static 'audio1/cs2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="D" >
+                                <source src="{% static 'audio1/d2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Ds" >
+                                <source src="{% static 'audio1/ds2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="E" >
+                                <source src="{% static 'audio1/e2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="F" >
+                                <source src="{% static 'audio1/f2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Fs" >
+                                <source src="{% static 'audio1/fs2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="G" >
+                                <source src="{% static 'audio1/g2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Gs" >
+                                <source src="{% static 'audio1/gs2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="A" >
+                                <source src="{% static 'audio1/a2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="As" >
+                                <source src="{% static 'audio1/as2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="B" >
+                                <source src="{% static 'audio1/b2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="C1" >
+                                <source src="{% static 'audio1/c3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Cs1" >
+                                <source src="{% static 'audio1/cs3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="D1" >
+                                <source src="{% static 'audio1/d3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Ds1" >
+                                <source src="{% static 'audio1/ds3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="E1" >
+                                <source src="{% static 'audio1/e3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="F1" >
+                                <source src="{% static 'audio1/f3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Fs1" >
+                                <source src="{% static 'audio1/fs3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="G1" >
+                                <source src="{% static 'audio1/g3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Gs1" >
+                                <source src="{% static 'audio1/gs3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="A1" >
+                                <source src="{% static 'audio1/a3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="As1" >
+                                <source src="{% static 'audio1/as3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="B1" >
+                                <source src="{% static 'audio1/b3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="C2" >
+                                <source src="{% static 'audio1/c4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Cs2" >
+                                <source src="{% static 'audio1/cs4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="D2" >
+                                <source src="{% static 'audio1/d4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Ds2" >
+                                <source src="{% static 'audio1/ds4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="E2" >
+                                <source src="{% static 'audio1/e4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="F2" >
+                                <source src="{% static 'audio1/f4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Fs2" >
+                                <source src="{% static 'audio1/fs4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="G2" >
+                                <source src="{% static 'audio1/g4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Gs2" >
+                                <source src="{% static 'audio1/gs4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="A2" >
+                                <source src="{% static 'audio1/a4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="As2" >
+                                <source src="{% static 'audio1/as4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="B2" >
+                                <source src="{% static 'audio1/b4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <p class="small text-muted">Используйте мышь или клавиатуру для игры на пианино.</p>
+                </div>
+            </div>
+        </div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Теория -->
+        <div class="card mb-4 shadow-sm theory-card">
+            <div class="card-header accent-bg">
+                <h2 class="h5 mb-0">Теория</h2>
+            </div>
+            <div class="card-body">
+                {% if lesson.content_file.content.theory %}
+                <div class="theory-text">
+                    {{ lesson.content_file.content.theory|safe }}
+                </div>
+                {% else %}
+                    <p>{{ lesson.description|linebreaks }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <!-- Упражнения -->
+        {% if lesson.content_file.content.exercises %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header accent-dark">
+                <h2 class="h5 mb-0">Упражнения</h2>
+            </div>
+            <div class="card-body">
+                {% for exercise in lesson.content_file.content.exercises %}
+                <div class="exercise mb-4 {% if not forloop.last %}pb-3{% endif %}">
+                    <h3 class="h6">{{ exercise.description }}</h3>
+                    <div class="text-muted small mb-2">Тип: {{ exercise.type }}</div>
+
+                    {% if exercise.examples %}
+                    <div class="exercise-examples">
+                        <h4 class="h6 mt-3">Примеры:</h4>
+                        <ul class="list-group">
+                            {% for example in exercise.examples %}
+                            <li class="list-group-item">{{ example }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    {% if exercise.notes %}
+                    <div class="exercise-notes mt-3">
+                        <h4 class="h6">Ноты:</h4>
+                        <div class="d-flex flex-wrap">
+                            {% for note in exercise.notes %}
+                            <span class="badge me-2 mb-2 p-2">{{ note }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Аудио примеры -->
+        {% if lesson.content_file.content.audio_examples %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header accent-light">
+                <h2 class="h5 mb-0">Аудио примеры</h2>
+            </div>
+            <div class="card-body">
+                {% for audio in lesson.content_file.content.audio_examples %}
+                <div class="audio-example mb-3">
+                    <h3 class="h6">{{ audio.title }}</h3>
+                    <audio controls class="w-100">
+                        <source src="{% static audio.file_path|slice:'1:' %}" type="audio/mpeg">
+                        Ваш браузер не поддерживает аудио элемент.
+                    </audio>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Визуальные примеры -->
+        {% if lesson.content_file.content.visual_examples %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header accent-warning">
+                <h2 class="h5 mb-0">Визуальные примеры</h2>
+            </div>
+            <div class="card-body">
+                {% for visual in lesson.content_file.content.visual_examples %}
+                <div class="visual-example mb-3">
+                    <h3 class="h6">{{ visual.title }}</h3>
+                    <img src="{% static visual.file_path|slice:'1:' %}" alt="{{ visual.title }}" class="img-fluid rounded">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+    <div class="col-lg-4">
+        {% if tests %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header accent-dark">
+                <h2 class="h5 mb-0">Тест к уроку</h2>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for test in tests %}
+                    <a href="{% url 'school:test_detail' test.pk %}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-tasks me-2"></i> {{ test.topic }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="mt-4">
+        <div class="d-flex justify-content-between">
+            {% if lesson.content_file.id > 1 %}
+            <a href="{% url 'school:lesson_detail_solf' lesson.id|add:'-1' %}" class="btn accent-btn">
+                <i class="fas fa-arrow-left"></i> Предыдущий урок
+            </a>
+            {% else %}
+            <div></div>
+            {% endif %}
+
+            {% if next_lesson %}
+            <a href="{% url 'school:lesson_detail_solf' next_lesson.pk %}" class="btn accent-btn">
+                Следующий урок: {{ next_lesson.topic }} <i class="fas fa-arrow-right"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+    <script src="{% static 'school/js/lesson_detail_solf.js' %}" defer></script>
+{% endblock %}

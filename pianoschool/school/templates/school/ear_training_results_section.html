@@ -1,0 +1,31 @@
+{% extends 'main/layout.html' %}
+{% block extra_css %}
+    <link href="{% static 'school/css/ear_training_results_section.css' %}" rel="stylesheet">
+{% endblock %}
+{% block title %}Результаты за {{ section_name }}{% endblock %}
+{% block content %}
+<h2 class="ear-section-header">Результаты за {{ section_name }}</h2>
+<table class="ear-section-table">
+    <tr>
+        <th>Контрольная</th>
+        <th>Урок</th>
+        <th>Результат</th>
+        <th>Статус</th>
+    </tr>
+    {% for r in results %}
+    <tr>
+        <td>{{ r.test.title }}</td>
+        <td>{{ r.lesson.title }}</td>
+        <td>{{ r.correct }}/{{ r.total }}</td>
+        <td>
+            {% if r.status == "Сдано" %}
+                <span class="ear-status-done">{{ r.status }}</span>
+            {% else %}
+                <span class="ear-status-notdone">{{ r.status }}</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<a class="ear-back-link" href="{% url 'school:ear_training_tests' %}">К списку контрольных</a>
+{% endblock %}

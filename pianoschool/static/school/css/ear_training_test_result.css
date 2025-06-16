@@ -1,0 +1,92 @@
+:root {
+    --orange-main: #e3a54a;
+    --orange-dark: #b86c20;
+    --orange-light: #ffe0b2;
+    --text-dark: #333;
+    --bg-light: #fff8f0;
+    --green: #43a047;
+    --red: #e53935;
+    --gray: #bdbdbd;
+}
+
+
+.ear-result-header {
+    color: var(--orange-dark);
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.ear-result-summary {
+    color: var(--orange-main);
+    font-size: 1.15rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.ear-result-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.08);
+    margin: 0 auto 2rem auto;
+    overflow: hidden;
+}
+
+.ear-result-table th {
+    background: var(--orange-main);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.8em 1em;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+}
+
+.ear-result-table td {
+    padding: 0.7em 1em;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--orange-light);
+}
+
+.ear-result-table tr:last-child td {
+    border-bottom: none;
+}
+
+.ear-status-correct {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.ear-status-wrong {
+    color: var(--red);
+    font-weight: 600;
+}
+
+.ear-status-none {
+    color: var(--gray);
+    font-style: italic;
+}
+
+.ear-back-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.5em 1.2em;
+    border-radius: 6px;
+    background: var(--orange-main);
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 3px rgba(255,152,0,0.10);
+}
+
+.ear-back-link:hover {
+    background: var(--orange-dark);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.18);
+}
+

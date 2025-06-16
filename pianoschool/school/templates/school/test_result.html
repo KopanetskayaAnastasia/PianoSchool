@@ -1,0 +1,25 @@
+{% extends "main/layout.html" %}
+{% block content %}
+  <div class="result-container">
+    <div class="result-title">Результаты теста: {{ test.content.test.title }}</div>
+    <div class="alert {% if score >= passing_score %}alert-success{% else %}alert-danger{% endif %}">
+      {{ feedback_message }}
+    </div>
+    <ul class="result-list">
+      <li>Правильных ответов: <b>{{ correct_count }}</b></li>
+      <li>Неправильных ответов: <b>{{ incorrect_count }}</b></li>
+      <li>Набрано баллов: <b>{{ score }}</b> из <b>{{ max_score }}</b></li>
+      <li>Попытка: <b>{{ attempts }}</b> из 2</li>
+    </ul>
+    <form method="post" action="{% url 'school:test_result_submit' test.pk %}" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn-primary">Отправить результаты</button>
+    </form>
+    {% if can_retry %}
+      <a href="{% url 'school:test_detail' test.pk %}" class="btn-warning">Пройти тест еще раз</a>
+      <a href="{% url 'school:lesson_detail_solf' pk=test.lesson.pk %}" class="btn-secondary">Вернуться к уроку и пройти тест позже</a>
+    {% else %}
+      <a href="{% url 'school:lesson_detail_solf' pk=test.lesson.pk %}" class="btn-secondary disabled">Вернуться к уроку</a>
+    {% endif %}
+  </div>
+{% endblock %}

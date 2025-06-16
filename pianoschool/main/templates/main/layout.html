@@ -1,0 +1,108 @@
+{% load sass_tags %}
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	{% load sass_tags %}
+    <link href="{% sass_src 'main/css/layout.scss'%}" rel="stylesheet" type="text/css">
+
+	<link href="{% static 'main/css/layout1.css' %}" rel="stylesheet">
+
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+	<script src="{% static 'bootstrap/js/bootstrap.min.js'%}"></script>
+	<link href="{% static 'bootstrap/css/bootstrap-reboot.css'%}" rel="stylesheet">
+	<link href="{% static 'bootstrap/css/bootstrap-grid.min.css'%}" rel="stylesheet">
+	{% block extra_css %}
+	{% endblock %}
+
+	<script defer type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script defer type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    <title>  {% block title %}{% endblock %}</title>
+</head>
+<body>
+	<div class="content">
+		<header>
+			<nav class="navbar-nav">
+				<div class="navbar__container">
+					<a href="{% url 'home' %}" class="navbar__container-brand">PianoSchool</a>
+					<div class="navbar__container-wrap">
+						<ul class="navbar__container-wrap-menu">
+							<li><a href="{% url 'home' %}">На главную </a> | </li>
+							{% if request.user.is_authenticated %}
+								<li>{{user.username}} | <a href="{% url 'logout' %}">Выйти</a></li>
+							{% else %}
+							<li><a href="{% url 'register' %}">Регистрация</a></li>
+							<li><a href="{% url 'login' %}">Войти</a></li>
+							{% endif %}
+						</ul>
+						<a href="{% url 'modal' %}" class="navbar__container-wrap-callback">
+							<span>Как играть?</span>
+						</a>
+					</div>
+					<div class="burger-menu" id="burgerMenu">
+    <button class="burger-icon" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <nav class="menu-dropdown" id="menuDropdown" aria-label="Меню сайта">
+        <h2>Меню</h2>
+        <ul>
+            <li><a href="{% url 'personalisation'%}">Личный кабинет</a></li>
+            {% if user.is_authenticated %}
+                {% load group_filters %}
+                {% if user|has_group:"Ученики" %}
+                    <li><a href="{% url 'school:student_progress' %}">Мой прогресс</a></li>
+					<li><a href="{% url 'school:ear_training_tests' %}">Слуховые контрольные</a></li>
+                {% endif %}
+                {% if user|has_group:"Учителя" %}
+                    <li><a href="{% url 'school:teacher_students' %}">Мои ученики</a></li>
+                {% endif %}
+				{% if user|has_group:"Учителя" %}
+                    <li><a href="{% url 'school:export_progress_report' %}">Выгрузить отчет</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+        <div class="menu-section-title">Уроки:</div>
+        <ul>
+            <li><a href="{% url 'school:literature_lessons'%}">Музыкальная литература</a></li>
+            <li><a href="{% url 'school:solfeggio_lessons'%}">Сольфеджио</a></li>
+        </ul>
+        <div class="menu-section-title">Инструменты:</div>
+        <ul>
+            <li><a href="{% url 'home'%}">Пианино</a></li>
+            <li><a href="{% url 'klavesin'%}">Клавесин</a></li>
+            <li><a href="{% url 'organ'%}">Орган</a></li>
+        </ul>
+        <ul>
+            <li><a href="{% url 'school:test_list'%}">Тесты</a></li>
+        </ul>
+    </nav>
+</div>
+				</div>
+			</nav>
+		</header>
+	</div>
+	<main>
+	{% block content %}
+  	{% endblock %}
+	</main>
+	<footer class="footer" role="contentinfo">
+		<div class="container-fluid">
+			<div class="row">
+				<p>Проект Копанецкой Анастасии "Образовательная платформа для обучения в музыкальных школах", Краснодар, Россия, 2025.<br></p>
+			</div>
+		</div>
+	</footer>
+	{% block extra_js %}
+  	{% endblock %}
+    <script src="{% static 'main/js/layout.js' %}" defer></script>
+</body>
+</html>

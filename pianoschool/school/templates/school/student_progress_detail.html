@@ -1,0 +1,150 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<h2>Прогресс ученика: {{ student.surname }} {{ student.name }}</h2>
+<p>Школа: {{ student.school.name }}<br>
+Год обучения: {{ student.grade_of_school }}<br>
+Номер телефона: {{ student.phone }}<br>
+Почта: {{ student.email }}<br></p>
+<h3>Результаты тестов по сольфеджио</h3>
+{% if grouped_solfeggio_results %}
+<table class="table accent-table">
+    <thead>
+        <tr>
+            <th>Тест</th>
+            <th>Баллы</th>
+            <th>Правильных</th>
+            <th>Неправильных</th>
+            <th>Максимум</th>
+            <th>Попытка</th>
+            <th>Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for section, results, avg_score in grouped_solfeggio_results %}
+            <tr>
+                <th colspan="7" style="background:#f0f0f0;">Секция: {{ section }}</th>
+            </tr>
+            {% for res in results %}
+            <tr>
+                <td>{{ res.test.topic }}</td>
+                <td>{{ res.score }}</td>
+                <td>{{ res.correct_count }}</td>
+                <td>{{ res.incorrect_count }}</td>
+                <td>{{ res.max_score }}</td>
+                <td>{{ res.attempt_number }}</td>
+                <td>{{ res.timestamp|date:"d.m.Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="7" style="text-align:right; font-weight:bold;">
+                    Средний балл по секции: {{ avg_score }}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="7">Нет результатов</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>Нет результатов по сольфеджио.</p>
+{% endif %}
+
+<h3>Результаты контрольных (слуховых диктантов)</h3>
+{% if grouped_ear_training_results %}
+<table class="table accent-table">
+    <thead>
+        <tr>
+            <th>Четверть</th>
+            <th>Контрольная</th>
+            <th>Баллы</th>
+            <th>Правильных</th>
+            <th>Неправильных</th>
+            <th>Максимум</th>
+            <th>Дата сдачи</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for section, results, avg_score in grouped_ear_training_results %}
+            {% for res in results %}
+            <tr>
+                {% if forloop.first %}
+                    <td rowspan="{{ results|length }}" style="background:#f0f0f0; font-weight:bold;">{{ section }}</td>
+                {% endif %}
+                <td>{{ res.test.title }}</td>
+                <td>{{ res.score }}</td>
+                <td>{{ res.correct_count }}</td>
+                <td>{{ res.incorrect_count }}</td>
+                <td>{{ res.max_score }}</td>
+                <td>
+                    {% if res.last_attempt %}
+                        {{ res.last_attempt|date:"d.m.Y H:i" }}
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="7" style="text-align:right; font-weight:bold; background:#fffbe6;">
+                    Средний балл по секции: {{ avg_score }}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="7">Нет результатов</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>Нет результатов по контрольным.</p>
+{% endif %}
+
+<h3>Результаты тестов по музыкальной литературе</h3>
+{% if grouped_literature_results %}
+<table class="table accent-table">
+    <thead>
+        <tr>
+            <th>Тест</th>
+            <th>Баллы</th>
+            <th>Правильных</th>
+            <th>Неправильных</th>
+            <th>Максимум</th>
+            <th>Попытка</th>
+            <th>Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for section, results, avg_score in grouped_literature_results %}
+            <tr>
+                <th colspan="7" style="background:#f0f0f0;">Секция: {{ section }}</th>
+            </tr>
+            {% for res in results %}
+            <tr>
+                <td>{{ res.test.topic }}</td>
+                <td>{{ res.score }}</td>
+                <td>{{ res.correct_count }}</td>
+                <td>{{ res.incorrect_count }}</td>
+                <td>{{ res.max_score }}</td>
+                <td>{{ res.attempt_number }}</td>
+                <td>{{ res.timestamp|date:"d.m.Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="7" style="text-align:right; font-weight:bold;">
+                    Средний балл по секции: {{ avg_score }}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="7">Нет результатов</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>Нет результатов по музыкальной литературе.</p>
+{% endif %}
+{% endblock %}

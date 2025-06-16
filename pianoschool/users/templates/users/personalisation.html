@@ -1,0 +1,40 @@
+{% extends 'main/layout.html'%}
+{% block title %}Персонализация{% endblock %}
+{% block content %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+
+ <h1>Персонализация профиля</h1>
+        {% if saved %}
+            <div class="alert alert-success">Данные успешно сохранены!</div>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <h4>Данные пользователя</h4>
+            {% for f in user_form %}
+                <label><h6>{{ f.label }}:</h6></label><br>
+                {{ f }}<br>
+                <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}
+            <div class="form-error">{{ form.non_field_errors}}</div>
+            <h4>Персонализация</h4>
+            {%for f in form%}
+                <label><h6>{{f.label}}:</h6></label><br>
+                {{f}}<br>
+                <div class="form-error">{{f.errors}}</div>
+            {% endfor %}
+            <button class="btn btn-success" type="submit">Сохранить</button>
+            <p>
+                <a href="{% url 'password_change' %}" class="password-reset-link">Сменить пароль</a>
+            </p>
+            <div class="mt-4">
+                <a href="{% url 'delete_profile' %}" class="btn btn-outline-danger"
+                    onclick="return confirm('Вы уверены, что хотите удалить свой профиль? Это действие необратимо.');">
+                    Удалить профиль
+                </a>
+            </div>
+        </form>
+{% endblock %}

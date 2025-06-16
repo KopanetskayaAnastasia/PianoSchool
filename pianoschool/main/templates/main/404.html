@@ -1,0 +1,8 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<div class="alert alert-warning mt-5" style="text-align:center;">
+    <h2>Ошибка 404</h2>
+    <p>Страница не найдена или у вас нет доступа.<br>
+    <a href="{% url 'login' %}">Войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a>, чтобы получить доступ.</p>
+</div>
+{% endblock %}

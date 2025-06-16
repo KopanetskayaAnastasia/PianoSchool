@@ -1,0 +1,441 @@
+{% extends 'main/layout.html'%}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'main/css/modal.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="piano-instructions-container mt-5">
+    <div class="piano-instructions-header">
+        <h1>Как играть на виртуальном пианино</h1>
+        <p class="lead">Наше виртуальное пианино поддерживает несколько способов игры для вашего удобства</p>
+    </div>
+
+    <div class="piano-instructions-section">
+        <h2><i class="fas fa-mouse-pointer"></i> Игра с помощью мыши</h2>
+        <p>Просто нажимайте на клавиши пианино мышью для воспроизведения звуков.</p>
+    </div>
+
+    <div class="piano-instructions-section">
+        <h2><i class="fas fa-hand-pointer"></i> Игра на сенсорных устройствах</h2>
+        <p>На планшетах и смартфонах нажимайте на клавиши пальцем. Для доступа ко всем клавишам используйте горизонтальную прокрутку.</p>
+    </div>
+
+    <div class="piano-instructions-section">
+        <h2><i class="fas fa-keyboard"></i> Игра с клавиатуры</h2>
+        <p>Используйте клавиши компьютерной клавиатуры для игры. Раскладка клавиш показана ниже:</p>
+
+        <!-- Легенда цветов октав -->
+        <div class="octave-legend">
+            <div class="legend-item">
+                <div class="legend-color octave-1"></div>
+                <div class="legend-text">Первая октава (голубой)</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color octave-2"></div>
+                <div class="legend-text">Вторая октава (зеленый)</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color octave-3"></div>
+                <div class="legend-text">Третья октава (оранжевый)</div>
+            </div>
+        </div>
+
+        <div class="keyboard-visualization">
+            <div class="keyboard-row function-row">
+                <div class="keybrd">Esc</div>
+                <div class="keybrd">F1</div>
+                <div class="keybrd">F2</div>
+                <div class="keybrd">F3</div>
+                <div class="keybrd">F4</div>
+                <div class="keybrd">F5</div>
+                <div class="keybrd">F6</div>
+                <div class="keybrd">F7</div>
+                <div class="keybrd">F8</div>
+                <div class="keybrd">F9</div>
+                <div class="keybrd">F10</div>
+                <div class="keybrd">F11</div>
+                <div class="keybrd">F12</div>
+            </div>
+
+            <div class="keyboard-row number-row">
+                <div class="keybrd">~</div>
+                <div class="keybrd">1</div>
+                <div class="keybrd piano-key octave-1" data-note="Cs">2<span class="note-label">До#</span></div>
+                <div class="keybrd piano-key octave-1" data-note="Ds">3<span class="note-label">Ре#</span></div>
+                <div class="keybrd">4</div>
+                <div class="keybrd piano-key octave-1" data-note="Fs">5<span class="note-label">Фа#</span></div>
+                <div class="keybrd piano-key octave-1" data-note="Gs">6<span class="note-label">Соль#</span></div>
+                <div class="keybrd piano-key octave-1" data-note="As">7<span class="note-label">Ля#</span></div>
+
+                <div class="keybrd">8</div>
+                <div class="keybrd piano-key octave-3" data-note="Cs2">9<span class="note-label">До#</span></div>
+                <div class="keybrd piano-key octave-3" data-note="Ds2">0<span class="note-label">Ре#</span></div>
+                <div class="keybrd">-</div>
+                <div class="keybrd piano-key octave-3" data-note="Fs2">=<span class="note-label">Фа#</span></div>
+                <div class="keybrd wide-key">Backspace</div>
+            </div>
+
+            <div class="keyboard-row qwerty-row">
+                <div class="keybrd">Tab</div>
+                <div class="keybrd piano-key octave-1" data-note="C">q<span class="note-label">До</span></div>
+                <div class="keybrd piano-key octave-1" data-note="D">w<span class="note-label">Ре</span></div>
+                <div class="keybrd piano-key octave-1" data-note="E">e<span class="note-label">Ми</span></div>
+                <div class="keybrd piano-key octave-1" data-note="F">r<span class="note-label">Фа</span></div>
+                <div class="keybrd piano-key octave-1" data-note="G">t<span class="note-label">Соль</span></div>
+                <div class="keybrd piano-key octave-1" data-note="A">y<span class="note-label">Ля</span></div>
+                <div class="keybrd piano-key octave-1" data-note="B">u<span class="note-label">Си</span></div>
+                <div class="keybrd piano-key octave-3" data-note="C2">i<span class="note-label">До</span></div>
+                <div class="keybrd piano-key octave-3" data-note="D2">o<span class="note-label">Ре</span></div>
+                <div class="keybrd piano-key octave-3" data-note="E2">p<span class="note-label">Ми</span></div>
+                <div class="keybrd piano-key octave-3" data-note="F2">[<span class="note-label">Фа</span></div>
+                <div class="keybrd">]</div>
+                <div class="keybrd">\</div>
+            </div>
+
+            <div class="keyboard-row asdf-row">
+                <div class="keybrd">Caps</div>
+                <div class="keybrd">a</div>
+                <div class="keybrd piano-key octave-2" data-note="Fs1">s<span class="note-label">До#</span></div>
+                <div class="keybrd piano-key octave-2" data-note="Gs1">d<span class="note-label">Ре#</span></div>
+                <div class="keybrd">f</div>
+                <div class="keybrd piano-key octave-2" data-note="As1">g<span class="note-label">Фа#</span></div>
+                <div class="keybrd piano-key octave-2" data-note="Gs1">h<span class="note-label">Соль#</span></div>
+                <div class="keybrd piano-key octave-2" data-note="As1">j<span class="note-label">Ля#</span></div>
+                <div class="keybrd">k</div>
+                <div class="keybrd piano-key octave-3" data-note="Gs2">l<span class="note-label">Соль#</span></div>
+                <div class="keybrd piano-key octave-3" data-note="As2">;<span class="note-label">Ля#</span></div>
+                <div class="keybrd">'</div>
+                <div class="keybrd wide-key">Enter</div>
+            </div>
+
+            <div class="keyboard-row zxcv-row">
+                <div class="keybrd wide-key">Shift</div>
+                <div class="keybrd piano-key octave-2" data-note="C1">z<span class="note-label">До</span></div>
+                <div class="keybrd piano-key octave-2" data-note="D1">x<span class="note-label">Ре</span></div>
+                <div class="keybrd piano-key octave-2" data-note="E1">c<span class="note-label">Ми</span></div>
+                <div class="keybrd piano-key octave-2" data-note="F1">v<span class="note-label">Фа</span></div>
+                <div class="keybrd piano-key octave-2" data-note="G1">b<span class="note-label">Соль</span></div>
+                <div class="keybrd piano-key octave-2" data-note="A1">n<span class="note-label">Ля</span></div>
+                <div class="keybrd piano-key octave-2" data-note="B1">m<span class="note-label">Си</span></div>
+
+                <div class="keybrd piano-key octave-3" data-note="G2">,<span class="note-label">Соль</span></div>
+                <div class="keybrd piano-key octave-3" data-note="A2">.<span class="note-label">Ля</span></div>
+                <div class="keybrd piano-key octave-3" data-note="B2">/<span class="note-label">Си</span></div>
+                <div class="keybrd wide-key">Shift</div>
+            </div>
+
+            <div class="keyboard-row space-row">
+                <div class="keybrd">Ctrl</div>
+                <div class="keybrd">Win</div>
+                <div class="keybrd">Alt</div>
+                <div class="keybrd space-key">Пробел</div>
+                <div class="keybrd">Alt</div>
+                <div class="keybrd">Win</div>
+                <div class="keybrd">Menu</div>
+                <div class="keybrd">Ctrl</div>
+            </div>
+        </div>
+    </div>
+
+             <!-- Виртуальное пианино -->
+        <div class="card shadow-sm col-lg-12 col-md-12 order-md-2 mb-4">
+            <div class="card-header accent-bg">
+                <h2 class="h5 mb-0">Виртуальное пианино</h2>
+            </div>
+            <div class="card-body">
+                <div class="piano">
+                    <div class="container" style="width: 100%;">
+                        <div class="keys">
+                            <button class="col-xl col-md col-sm key key-w C " data-sound="C">До</button>
+                            <button class="col-xl col-md col-sm key key-b Cs " data-sound="Cs">До# <br> РеЬ</button>
+                            <button class="col-xl col-md col-sm key key-w D " data-sound="D">Ре</button>
+                            <button class="col-xl col-md col-sm key key-b Ds " data-sound="Ds">Ре# <br> МиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w E " data-sound="E">Ми</button>
+                            <button class="col-xl col-md col-sm key key-w F " data-sound="F">Фа</button>
+                            <button class="col-xl col-md col-sm key key-b Fs " data-sound="Fs">Фа# <br> СольЬ</button>
+                            <button class="col-xl col-md col-sm key key-w G " data-sound="G">Соль</button>
+                            <button class="col-xl col-md col-sm key key-b Gs " data-sound="Gs">Соль# <br> ЛяЬ</button>
+                            <button class="col-xl col-md col-sm key key-w A " data-sound="A">Ля</button>
+                            <button class="col-xl col-md col-sm key key-b As " data-sound="As">Ля# <br> СиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w B " data-sound="B">Си</button>
+                            <button class="col-xl col-md col-sm key key-w C1 " data-sound="C1">До</button>
+                            <button class="col-xl col-md col-sm key key-b Cs1 " data-sound="Cs1">До# <br> РеЬ</button>
+                            <button class="col-xl col-md col-sm key key-w D1 " data-sound="D1">Ре</button>
+                            <button class="col-xl col-md col-sm key key-b Ds1 " data-sound="Ds1">Ре# <br> МиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w E1 " data-sound="E1">Ми</button>
+                            <button class="col-xl col-md col-sm key key-w F1 " data-sound="F1">Фа</button>
+                            <button class="col-xl col-md col-sm key key-b Fs1 " data-sound="Fs1">Фа# <br> СольЬ</button>
+                            <button class="col-xl col-md col-sm key key-w G1 " data-sound="G1">Соль</button>
+                            <button class="col-xl col-md col-sm key key-b Gs1 " data-sound="Gs1">Соль# <br> ЛяЬ</button>
+                            <button class="col-xl col-md col-sm key key-w A1 " data-sound="A1">Ля</button>
+                            <button class="col-xl col-md col-sm key key-b As1 " data-sound="As1">Ля# <br> СиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w B1 " data-sound="B1">Си</button>
+                            <button class="col-xl col-md col-sm key key-w C2" data-sound="C2">До</button>
+                            <button class="col-xl col-md col-sm key key-b Cs2" data-sound="Cs2">До# <br> РеЬ</button>
+                            <button class="col-xl col-md col-sm key key-w D2 " data-sound="D2">Ре</button>
+                            <button class="col-xl col-md col-sm key key-b Ds2 " data-sound="Ds2">Ре# <br> МиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w E2 " data-sound="E2">Ми</button>
+                            <button class="col-xl col-md col-sm key key-w F2 " data-sound="F2">Фа</button>
+                            <button class="col-xl col-md col-sm key key-b Fs2 " data-sound="Fs2">Фа# <br> СольЬ</button>
+                            <button class="col-xl col-md col-sm key key-w G2 " data-sound="G2">Соль</button>
+                            <button class="col-xl col-md col-sm key key-b Gs2 " data-sound="Gs2">Соль# <br> ЛяЬ</button>
+                            <button class="col-xl col-md col-sm key key-w A2 " data-sound="A2">Ля</button>
+                            <button class="col-xl col-md col-sm key key-b As2 " data-sound="As2">Ля# <br> СиЬ</button>
+                            <button class="col-xl col-md col-sm key key-w B2 " data-sound="B2">Си</button>
+                            <audio id="C" >
+                                <source src="{% static 'audio1/c2.mp3'%}" type="audio/mpeg" />
+                            </audio>
+                            <audio id="Cs" >
+                                <source src="{% static 'audio1/cs2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="D" >
+                                <source src="{% static 'audio1/d2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Ds" >
+                                <source src="{% static 'audio1/ds2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="E" >
+                                <source src="{% static 'audio1/e2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="F" >
+                                <source src="{% static 'audio1/f2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Fs" >
+                                <source src="{% static 'audio1/fs2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="G" >
+                                <source src="{% static 'audio1/g2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Gs" >
+                                <source src="{% static 'audio1/gs2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="A" >
+                                <source src="{% static 'audio1/a2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="As" >
+                                <source src="{% static 'audio1/as2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="B" >
+                                <source src="{% static 'audio1/b2.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="C1" >
+                                <source src="{% static 'audio1/c3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Cs1" >
+                                <source src="{% static 'audio1/cs3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="D1" >
+                                <source src="{% static 'audio1/d3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Ds1" >
+                                <source src="{% static 'audio1/ds3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="E1" >
+                                <source src="{% static 'audio1/e3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="F1" >
+                                <source src="{% static 'audio1/f3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Fs1" >
+                                <source src="{% static 'audio1/fs3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="G1" >
+                                <source src="{% static 'audio1/g3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Gs1" >
+                                <source src="{% static 'audio1/gs3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="A1" >
+                                <source src="{% static 'audio1/a3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="As1" >
+                                <source src="{% static 'audio1/as3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="B1" >
+                                <source src="{% static 'audio1/b3.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="C2" >
+                                <source src="{% static 'audio1/c4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Cs2" >
+                                <source src="{% static 'audio1/cs4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="D2" >
+                                <source src="{% static 'audio1/d4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Ds2" >
+                                <source src="{% static 'audio1/ds4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="E2" >
+                                <source src="{% static 'audio1/e4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="F2" >
+                                <source src="{% static 'audio1/f4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Fs2" >
+                                <source src="{% static 'audio1/fs4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="G2" >
+                                <source src="{% static 'audio1/g4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="Gs2" >
+                                <source src="{% static 'audio1/gs4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="A2" >
+                                <source src="{% static 'audio1/a4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="As2" >
+                                <source src="{% static 'audio1/as4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                            <audio id="B2" >
+                                <source src="{% static 'audio1/b4.mp3'%}" type="audio/mpeg"/>
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <p class="small text-muted">Используйте мышь или клавиатуру для игры на пианино.</p>
+                </div>
+            </div>
+        </div>
+
+    <div class="piano-instructions-section">
+        <h2><i class="fas fa-music"></i> Соответствие клавиш и нот</h2>
+        <div class="note-mapping">
+            <table class="note-table">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="octave-1-bg">Первая октава</th>
+                        <th colspan="2" class="octave-2-bg">Вторая октава</th>
+                        <th colspan="2" class="octave-3-bg">Третья октава</th>
+                    </tr>
+                    <tr>
+                        <th>Клавиша</th>
+                        <th>Нота</th>
+                        <th>Клавиша</th>
+                        <th>Нота</th>
+                        <th>Клавиша</th>
+                        <th>Нота</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="octave-1-bg">q</td>
+                        <td>До (C)</td>
+                        <td class="octave-2-bg">z</td>
+                        <td>До (C1)</td>
+                        <td class="octave-3-bg">i</td>
+                        <td>До (C2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">2</td>
+                        <td>До# (Cs)</td>
+                        <td class="octave-2-bg">s</td>
+                        <td>До# (Cs1)</td>
+                        <td class="octave-3-bg">9</td>
+                        <td>До# (Cs2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">w</td>
+                        <td>Ре (D)</td>
+                        <td class="octave-2-bg">x</td>
+                        <td>Ре (D1)</td>
+                        <td class="octave-3-bg">o</td>
+                        <td>Ре (D2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">3</td>
+                        <td>Ре# (Ds)</td>
+                        <td class="octave-2-bg">d</td>
+                        <td>Ре# (Ds1)</td>
+                        <td class="octave-3-bg">0</td>
+                        <td>Ре# (Ds2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">e</td>
+                        <td>Ми (E)</td>
+                        <td class="octave-2-bg">c</td>
+                        <td>Ми (E1)</td>
+                        <td class="octave-3-bg">p</td>
+                        <td>Ми (E2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">r</td>
+                        <td>Фа (F)</td>
+                        <td class="octave-2-bg">v</td>
+                        <td>Фа (F1)</td>
+                        <td class="octave-3-bg">[</td>
+                        <td>Фа (F2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">5</td>
+                        <td>Фа# (Fs)</td>
+                        <td class="octave-2-bg">g</td>
+                        <td>Фа# (Fs1)</td>
+                        <td class="octave-3-bg">=</td>
+                        <td>Фа# (Fs2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">t</td>
+                        <td>Соль (G)</td>
+                        <td class="octave-2-bg">b</td>
+                        <td>Соль (G1)</td>
+                        <td class="octave-3-bg">,</td>
+                        <td>Соль (G2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">6</td>
+                        <td>Соль# (Gs)</td>
+                        <td class="octave-2-bg">h</td>
+                        <td>Соль# (Gs1)</td>
+                        <td class="octave-3-bg">l</td>
+                        <td>Соль# (Gs2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">y</td>
+                        <td>Ля (A)</td>
+                        <td class="octave-2-bg">n</td>
+                        <td>Ля (A1)</td>
+                        <td class="octave-3-bg">.</td>
+                        <td>Ля (A2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">7</td>
+                        <td>Ля# (As)</td>
+                        <td class="octave-2-bg">j</td>
+                        <td>Ля# (As1)</td>
+                        <td class="octave-3-bg">;</td>
+                        <td>Ля# (As2)</td>
+                    </tr>
+                    <tr>
+                        <td class="octave-1-bg">u</td>
+                        <td>Си (B)</td>
+                        <td class="octave-2-bg">m</td>
+                        <td>Си (B1)</td>
+                        <td class="octave-3-bg">/</td>
+                        <td>Си (B2)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="piano-instructions-section">
+        <h2><i class="fas fa-lightbulb"></i> Советы</h2>
+        <ul class="tips-list">
+            <li>Для начинающих рекомендуется сначала освоить игру на белых клавишах (основные ноты).</li>
+            <li>Попробуйте сыграть простые мелодии, например "В траве сидел кузнечик" или "Собачий вальс".</li>
+            <li>Для более удобной игры с клавиатуры используйте компьютер, а не мобильное устройство.</li>
+            <li>Чтобы запомнить расположение нот, обратите внимание на повторяющийся паттерн клавиш.</li>
+            <li>Обратите внимание на цветовое обозначение октав для более удобной ориентации.</li>
+        </ul>
+    </div>
+
+    <div class="piano-instructions-footer">
+        <a href="{% url 'home' %}" class="btn btn-primary">Вернуться к пианино</a>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+    <script src="{% static 'main/js/modal.js' %}" defer></script>
+{% endblock %}

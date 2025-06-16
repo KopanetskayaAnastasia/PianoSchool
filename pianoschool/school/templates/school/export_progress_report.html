@@ -1,0 +1,19 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<h2>Экспорт отчета по успеваемости</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.section.label_tag }} {{ form.section }}
+    {{ form.subject.label_tag }} {{ form.subject }}
+    {{ form.group.label_tag }} {{ form.group }}
+    {{ form.student.label_tag }} {{ form.student }}
+    <label for="grade_of_school">Год обучения:</label>
+    <select name="grade_of_school" id="grade_of_school" class="form-control">
+        <option value="">Все года</option>
+        {% for grade in grades %}
+            <option value="{{ grade }}" {% if grade|stringformat:"s" == request.POST.grade_of_school %}selected{% endif %}>{{ grade }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="accent-btn">Выгрузить отчет</button>
+</form>
+{% endblock %}

@@ -1,0 +1,348 @@
+{% extends "main/layout.html" %}
+{% block content %}
+
+<style>
+    :root {
+        --main-beige: #f5eee6;
+        --main-beige-dark: #e9dcc3;
+        --main-brown: #7c5c3e;
+        --main-brown-light: #bfa58a;
+        --main-brown-dark: #4e342e;
+        --main-bg: #f9f6f2;
+        --main-border: #e0c9a6;
+        --main-accent-bg: #f8f3ea;
+        --main-muted: #a1887f;
+    }
+    body {
+        color: var(--main-brown-dark);
+        font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    }
+    .content-wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2em 1em 3em 1em;
+    }
+    .accent-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-bottom: 2em;
+        background: #fff;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(124, 77, 38, 0.10);
+    }
+    .accent-table th, .accent-table td {
+        padding: 1em 1.2em;
+        border-bottom: 1px solid var(--main-border);
+        text-align: left;
+        color: var(--main-brown-dark);
+        background: #fff;
+    }
+    .accent-table th {
+        background: var(--main-accent-bg);
+        font-weight: 700;
+        color: var(--main-brown-dark);
+        letter-spacing: 0.03em;
+    }
+    .accent-table tr:last-child td {
+        border-bottom: none;
+    }
+    .accent-btn, .btn-secondary {
+        display: inline-block;
+        padding: 0.6em 1.5em;
+        border: none;
+        border-radius: 6px;
+        background: var(--main-brown);
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        text-decoration: none;
+        margin-top: 0.7em;
+        box-shadow: 0 2px 8px rgba(124, 77, 38, 0.08);
+        font-size: 1.08em;
+        letter-spacing: 0.02em;
+    }
+    .accent-btn:hover, .btn-secondary:hover {
+        background: var(--main-brown-dark);
+        color: #fff;
+        text-decoration: none;
+        box-shadow: 0 4px 16px rgba(124, 77, 38, 0.13);
+    }
+    .btn-secondary {
+        background: var(--main-beige-dark);
+        color: var(--main-brown-dark);
+        border: 1px solid var(--main-brown-light);
+        margin-left: 1em;
+        font-weight: 600;
+    }
+    .btn-secondary:hover {
+        background: var(--main-brown-light);
+        color: #fff;
+    }
+    .form-control, select, input[type="text"], input[type="number"] {
+        padding: 0.5em 1em;
+        border: 1.5px solid var(--main-border);
+        border-radius: 6px;
+        font-size: 1em;
+        margin-top: 0.2em;
+        margin-bottom: 0.7em;
+        width: 100%;
+        box-sizing: border-box;
+        background: var(--main-accent-bg);
+        transition: border 0.2s, background 0.2s;
+        color: var(--main-brown-dark);
+    }
+    .form-control:focus, select:focus, input[type="text"]:focus, input[type="number"]:focus {
+        border-color: var(--main-brown);
+        outline: none;
+        background: #fff;
+    }
+    form.mb-4, form.mb-2 {
+        background: var(--main-accent-bg);
+        padding: 1.5em 2em;
+        border-radius: 14px;
+        box-shadow: 0 2px 8px rgba(124, 77, 38, 0.06);
+        margin-bottom: 2.5em;
+        border: 1.5px solid var(--main-border);
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    form.mb-4 > *, form.mb-2 > * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    .group-list {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 2em;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .group-list li {
+        padding: 0.7em 1em;
+        border-bottom: 1px solid var(--main-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+        transition: background 0.2s;
+        color: var(--main-brown-dark);
+        font-size: 1.08em;
+    }
+    .group-list li:last-child {
+        border-bottom: none;
+    }
+    .group-list a {
+        color: var(--main-brown);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s;
+        border-bottom: 1px dashed var(--main-brown);
+        padding-bottom: 1px;
+    }
+    .group-list a:hover {
+        color: var(--main-brown-dark);
+        text-decoration: underline;
+        border-bottom: 1.5px solid var(--main-brown-dark);
+    }
+    .no-tests {
+        color: var(--main-brown-dark);
+        background: var(--main-accent-bg);
+        padding: 1em;
+        border-radius: 8px;
+        margin-bottom: 1.5em;
+        text-align: center;
+        border: 1.5px solid var(--main-border);
+        font-size: 1.1em;
+    }
+    .progress-title {
+        font-size: 2.2em;
+        font-weight: 800;
+        margin-bottom: 1em;
+        color: var(--main-brown-dark);
+        letter-spacing: 0.02em;
+        text-align: center;
+    }
+    h3, h4 {
+        color: var(--main-brown);
+        margin-top: 1.5em;
+        margin-bottom: 0.8em;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        text-align: center;
+    }
+    label {
+        font-weight: 600;
+        color: var(--main-brown-dark);
+        margin-bottom: 0.2em;
+        display: block;
+    }
+    .accent-table a {
+        color: var(--main-brown);
+        text-decoration: underline;
+        font-weight: 600;
+        transition: color 0.2s;
+    }
+    .accent-table a:hover {
+        color: var(--main-brown-dark);
+        text-decoration: underline;
+    }
+    .text-muted {
+        color: var(--main-muted);
+        font-size: 0.97em;
+    }
+    /* Flex for filter form */
+    .filter-form-row {
+        display: flex;
+        gap: 1.5em;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 1.2em;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .filter-form-row > div {
+        flex: 1 1 180px;
+        min-width: 180px;
+    }
+    @media (max-width: 800px) {
+        .content-wrapper {
+            padding: 1em 0.2em 2em 0.2em;
+        }
+        .accent-table th, .accent-table td {
+            padding: 0.6em 0.5em;
+        }
+        form.mb-4, form.mb-2 {
+            padding: 1em 0.7em;
+        }
+        .group-list {
+            max-width: 100%;
+        }
+        .filter-form-row {
+            flex-direction: column;
+            gap: 0.7em;
+        }
+    }
+</style>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+
+<div class="content-wrapper">
+
+<h2 class="progress-title">Мои ученики</h2>
+
+<h3 class="mt-4">Все ученики, связанные с вами</h3>
+{% if all_teacher_students %}
+    <table class="table accent-table">
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Школа</th>
+                <th>Год обучения</th>
+                <th>Прогресс ученика</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in all_teacher_students %}
+            <tr>
+                <td>{{ student.surname }} {{ student.name }}</td>
+                <td>{{ student.school.name }}</td>
+                <td>{{ student.grade_of_school }}</td>
+                <td>
+                    <a href="{% url 'school:student_progress_detail' student.id %}">
+                        Смотреть прогресс
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class="no-tests">Нет связанных учеников.</div>
+{% endif %}
+
+<h3 class="mt-4">Создать группу</h3>
+
+<!-- Форма фильтрации по школе и году обучения -->
+<form method="get" class="mb-2">
+    <div class="filter-form-row">
+        <div>
+            <label for="school_filter">Школа:</label>
+            <select name="school_filter" id="school_filter" class="form-control">
+                <option value="">Все школы</option>
+                {% for school in school_choices %}
+                    <option value="{{ school.id }}" {% if school.id|stringformat:"s" == school_filter %}selected{% endif %}>{{ school.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="grade_filter">Год обучения:</label>
+            <select name="grade_filter" id="grade_filter" class="form-control">
+                <option value="">Все года</option>
+                {% for grade in grade_choices %}
+                    <option value="{{ grade }}" {% if grade|stringformat:"s" == grade_filter %}selected{% endif %}>{{ grade }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn-secondary">Применить фильтр</button>
+    </div>
+</form>
+
+<form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ group_form.as_p }}
+    <h4>Выберите учеников для группы:</h4>
+    {{ members_form.as_p }}
+    <button type="submit" name="create_group" class="accent-btn">Создать группу</button>
+</form>
+
+{% if current_group %}
+    <h3 class="mt-4">Текущая группа: {{ current_group.name }}</h3>
+    <form method="post">
+        {% csrf_token %}
+        <h4>Изменить название группы:</h4>
+        <input type="hidden" name="edit_group_id" value="{{ current_group.id }}">
+        {{ group_form.as_p }}
+        <h4>Изменить состав группы:</h4>
+        {{ members_form.as_p }}
+        <button type="submit" class="accent-btn">Сохранить изменения</button>
+    </form>
+    <h4>Все ученики в текущей группе:</h4>
+    <ul class="group-list">
+        {% for student in current_group_members %}
+            <li>
+                <a href="{% url 'school:student_progress_detail' student.id %}">
+                    {{ student.surname }} {{ student.name }}
+                </a>
+                ({{ student.school.name }}, {{ student.grade_of_school }})
+            </li>
+        {% empty %}
+            <li>В группе нет учеников.</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3 class="mt-4">Текущая группа не выбрана</h3>
+{% endif %}
+
+<h3 class="mt-4">Мои группы</h3>
+<ul class="group-list">
+    {% for group in groups %}
+        <li>
+            <a href="?group={{ group.id }}">{{ group.name }}</a>
+            <span class="text-muted">({{ group.memberships.count }} учеников)</span>
+        </li>
+    {% empty %}
+        <li>У вас пока нет групп.</li>
+    {% endfor %}
+</ul>
+
+</div>
+{% endblock %}
