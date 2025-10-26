@@ -12,7 +12,7 @@ WORKDIR /app
 COPY requirements.txt /app/
 
 # Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && python manage.py collectstatic --noinput
 
 # Copy the entire Django project into the container
 COPY . /app/
