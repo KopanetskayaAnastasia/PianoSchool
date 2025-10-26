@@ -17,8 +17,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire Django project into the container
 COPY . /app/
 
+
+
 # Expose the port that the app runs on
 EXPOSE 8000
 
 # Run the Django development server
-CMD python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn pianoschool.wsgi:application
+CMD python pianoschool/manage.py migrate --noinput && python pianoschool/manage.py collectstatic --noinput && gunicorn pianoschool.wsgi:application
