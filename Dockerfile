@@ -23,4 +23,4 @@ COPY . /app/
 EXPOSE 8000
 
 # Run the Django development server
-CMD python pianoschool/manage.py migrate --noinput && python pianoschool/manage.py collectstatic --noinput && gunicorn pianoschool.wsgi:application
+CMD python pianoschool/manage.py migrate --noinput && python pianoschool/manage.py collectstatic --noinput && gunicorn pianoschool.pianoschool.wsgi:application
