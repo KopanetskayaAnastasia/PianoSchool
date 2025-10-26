@@ -20,7 +20,5 @@ COPY . /app/
 # Expose the port that the app runs on
 EXPOSE 8000
 
-RUN ./manage.py collectstatic --noinput
-
 # Run the Django development server
 CMD ["python", "pianoschool/manage.py", "runserver", "0.0.0.0:8000"]
