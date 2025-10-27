@@ -17,7 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire Django project into the container
 COPY . /app/
 
-ENV DJANGO_SETTINGS_MODULE=pianoschool.settings
+ENV DJANGO_SETTINGS_MODULE=pianoschool.pianoschool.settings
 
 RUN python pianoschool/manage.py migrate --noinput
 RUN python pianoschool/manage.py collectstatic --noinput
