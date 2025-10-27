@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', '018a43855220b1c8fa290621aa702c2a')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['pianoschool.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
