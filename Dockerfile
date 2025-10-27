@@ -9,21 +9,18 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY requirements.txt /app/
+COPY requirements.txt .
 
 # Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire Django project into the container
-COPY pianoschool/ /app/
+COPY . .
 
-ENV DJANGO_SETTINGS_MODULE=pianoschool.settings
+WORKDIR /app/pianoschool
 
 RUN python manage.py migrate --noinput
 RUN python manage.py collectstatic --noinput
 
-# Expose the port that the app runs on
-EXPOSE 10000
-
 # Run the Django development server
-CMD ["gunicorn", "pianoschool.wsgi:application", "--bind", "0.0.0.0:10000"]
+CMD gunicorn pianoschool.wsgi:application --bind 0.0.0.0:$PORT
