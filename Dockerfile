@@ -19,8 +19,8 @@ COPY . /app/
 
 ENV DJANGO_SETTINGS_MODULE=pianoschool.pianoschool.settings
 
-RUN python pianoschool/manage.py migrate --noinput
-RUN python pianoschool/manage.py collectstatic --noinput
+RUN python manage.py migrate --noinput
+RUN python manage.py collectstatic --noinput
 
 # Expose the port that the app runs on
 EXPOSE 10000
