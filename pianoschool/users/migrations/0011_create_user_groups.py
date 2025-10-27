@@ -16,8 +16,8 @@ def noop(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),  # <-- ссылается на твою миграцию выше
-        ('auth', 'latest'),     # гарантирует, что таблицы групп уже созданы
+        ('users', '0001_initial'),
+        ('auth', '0012_alter_user_first_name_max_length'),
     ]
 
     operations = [
