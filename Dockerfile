@@ -17,13 +17,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire Django project into the container
 COPY . /app/
 
-ENV DJANGO_SETTINGS_MODULE=pianoschool.pianoschool.settings
+ENV DJANGO_SETTINGS_MODULE=pianoschool.settings
 
-RUN python pianoschool/manage.py migrate --noinput
-RUN python pianoschool/manage.py collectstatic --noinput
+RUN python manage.py migrate --noinput
+RUN python manage.py collectstatic --noinput
 
 # Expose the port that the app runs on
 EXPOSE 10000
 
 # Run the Django development server
-CMD ["gunicorn", "pianoschool.pianoschool.wsgi:application", "--bind", "0.0.0.0:10000"]
+CMD ["gunicorn", "pianoschool.wsgi:application", "--bind", "0.0.0.0:10000"]
