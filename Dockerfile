@@ -26,4 +26,4 @@ RUN python pianoschool/manage.py collectstatic --noinput
 EXPOSE 10000
 
 # Run the Django development server
-CMD ["gunicorn", "pianoschool.wsgi:application", "--bind", "0.0.0.0:10000"]
+CMD ["gunicorn", "pianoschool.pianoschool.wsgi:application", "--bind", "0.0.0.0:10000"]
