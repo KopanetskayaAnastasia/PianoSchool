@@ -20,7 +20,6 @@ COPY . .
 WORKDIR /app/pianoschool
 
 RUN python manage.py migrate --noinput
-RUN python manage.py createsu
 RUN python manage.py collectstatic --noinput
 
 # Run the Django development server
