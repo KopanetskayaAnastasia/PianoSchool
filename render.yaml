@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: pianoschool
+    env: python
+    buildCommand: |
+      echo "=== Начинаем сборку ==="
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py migrate --noinput
+      
+      echo "=== Проверяем/создаем суперпользователя ==="
+      python -c "
+      import os
+      os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pianoschool.settings')
+      import django
+      django.setup()
+      from django.contrib.auth import get_user_model
+      User = get_user_model()
+      
+      # Пробуем найти любого пользователя
+      users = User.objects.all()
+      print(f'Всего пользователей в базе: {users.count()}')
+      
+      for user in users:
+          print(f'Найден: {user.username} (суперпользователь: {user.is_superuser})')
+      
+      # Создаем если нет
+      if not User.objects.filter(username='admin').exists():
+          User.objects.create_superuser('admin', 'nstspupkina@gmail.com', 'piano123admin')
+          print('✅ Создан суперпользователь: admin / piano123admin')
+      else:
+          print('✅ Суперпользователь admin уже существует')
+      
+      # Также проверяем других возможных имен
+      for username in ['superuser', 'root', 'administrator']:
+          if User.objects.filter(username=username).exists():
+              user = User.objects.get(username=username)
+              print(f'⚠️ Найден пользователь {username}, суперпользователь: {user.is_superuser}')
+      "
+    startCommand: gunicorn pianoschool.wsgi:application
