@@ -22,5 +22,11 @@ WORKDIR /app/pianoschool
 RUN python manage.py migrate --noinput
 RUN python manage.py collectstatic --noinput
 
+WORKDIR /app
+
+# Создайте суперпользователя автоматически
+# Убедитесь, что create_superuser.py включен в контейнер (в корень проекта или внутри pianoschool/)
+RUN python create_superuser.py
+
 # Run the Django development server
 CMD gunicorn pianoschool.wsgi:application --bind 0.0.0.0:$PORT
