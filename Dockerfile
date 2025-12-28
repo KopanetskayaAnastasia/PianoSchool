@@ -28,5 +28,7 @@ WORKDIR /app
 # Убедитесь, что create_superuser.py включен в контейнер (в корень проекта или внутри pianoschool/)
 RUN python create_superuser.py
 
+WORKDIR /app/pianoschool
+
 # Run the Django development server
 CMD gunicorn pianoschool.wsgi:application --bind 0.0.0.0:$PORT
